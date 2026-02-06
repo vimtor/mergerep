@@ -29,7 +29,9 @@ mergerep <username> --issues     # Include issues
 mergerep <username> --repo org/name  # Highlight specific repo
 ```
 
-![Example output](example.png)
+## Example
+
+<img src="example.png" alt="rauchg example output" width="70%" height="auto">
 
 ## License
 
