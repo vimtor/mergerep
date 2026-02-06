@@ -21,6 +21,14 @@ gh vet <username> --repo org/name  # Highlight specific repo
 ## Example
 
 <img src="https://github.com/user-attachments/assets/25571a51-152c-4516-a6dd-3da73b97da26" alt="example output" width="70%" height="auto">
+    
+## Skill
+
+Also available as an [skill](https://skills.sh). When installed, your AI agent will vet PR authors when asked to review a PR.
+
+```bash
+npx skills add vimtor/gh-vet
+```
 
 ## Motivation
 
@@ -28,14 +36,6 @@ Many open source maintainers are complaining about the influx of low-quality PRs
 
 - [tldraw closing pull requests from external contributors](https://x.com/tldraw/status/2011911073834672138)
 - [this tweet from @NathanFlurry](https://x.com/NathanFlurry/status/2018934424218587209)
-
-## Skill
-
-Available as an [agent skill](https://skills.sh). When installed, your AI agent will automatically vet PR authors when asked to review a PR.
-
-```bash
-npx skills add vimtor/gh-vet
-```
 
 ## License
 
