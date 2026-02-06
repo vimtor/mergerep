@@ -7,7 +7,7 @@
     <br/>
 </div>
 
-Check a contributor's merge rates before spending time on their LLM slop pull request.
+Check a contributor's merge rates before wasting time on a LLM slop pull request.
 
 ## Install
 
