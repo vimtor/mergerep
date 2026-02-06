@@ -1,13 +1,21 @@
 {
   "name": "mergerep",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "CLI for open-source contribution stats",
   "type": "module",
   "license": "MIT",
   "author": "vimtor",
   "repository": "vimtor/mergerep",
-  "keywords": ["github", "merge-rate", "cli", "contributions", "open-source"],
-  "files": ["src"],
+  "keywords": [
+    "github",
+    "merge-rate",
+    "cli",
+    "contributions",
+    "open-source"
+  ],
+  "files": [
+    "src"
+  ],
   "bin": {
     "mergerep": "./src/index.ts"
   },
