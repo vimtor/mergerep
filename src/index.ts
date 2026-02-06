@@ -8,7 +8,7 @@ import type { ContributionData } from "./types";
 
 program
   .name("mergerep")
-  .description("GitHub contribution merge rate")
+  .description("GitHub contribution stats")
   .argument("[username]", "GitHub username (defaults to current PR author)")
   .option("--json", "Output as JSON")
   .option("--repo <repo>", "Repository to highlight (owner/name)")
