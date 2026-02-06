@@ -1,7 +1,7 @@
 {
   "name": "mergerep",
-  "version": "0.1.0",
-  "description": "GitHub contribution merge rate CLI",
+  "version": "0.0.0",
+  "description": "CLI for open-source contribution stats",
   "type": "module",
   "license": "MIT",
   "author": "vimtor",
