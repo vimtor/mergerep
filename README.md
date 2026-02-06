@@ -13,9 +13,11 @@ Check a contributor's merge rates before spending time on their LLM slop pull re
 
 ```bash
 bun install -g mergerep
+npm install -g mergerep
+pnpm install -g mergerep
 ```
 
-Requires [Bun](https://bun.sh/) and [GitHub CLI](https://cli.github.com/) authenticated: `gh auth login`
+Requires [Bun](https://bun.sh/) and [GitHub CLI](https://cli.github.com/).
 
 ## Usage
 
@@ -27,24 +29,7 @@ mergerep <username> --issues     # Include issues
 mergerep <username> --repo org/name  # Highlight specific repo
 ```
 
-## Example
-
-```bash
-mergerep rauchg
-```
-
-```
-rauchg (from Dec 2010)
-
-Reputation: 70% (% of merged stars)
-
-Pull Requests:
-142 merged 186 opened 76%
-rauchg/blog 32/44 73%
-vercel/hyper 12/13 92%
-vercel/ncc 12/12 100%
-vercel/vercel 11/12 92%
-```
+![Example output](example.png)
 
 ## License
 
