@@ -22,10 +22,10 @@ Requires [Bun](https://bun.sh/) and [GitHub CLI](https://cli.github.com/).
 ## Usage
 
 ```bash
-mergerep <username>              # Check user's merge rate
-mergerep                         # In PR branch, check PR author
-mergerep <username> --json       # JSON output
-mergerep <username> --issues     # Include issues
+mergerep <username>                  # Check user's merge rate
+mergerep                             # In PR branch, check PR author
+mergerep <username> --json           # JSON output
+mergerep <username> --issues         # Include issues
 mergerep <username> --repo org/name  # Highlight specific repo
 ```
 
