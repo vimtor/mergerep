@@ -1,6 +1,6 @@
 ---
 name: gh-scout
-description: Check a GitHub user's open source merge rate and contribution reputation. Use when reviewing a PR from an unknown contributor, asked to "check merge rate", "check contributor quality", "vet this PR author", or "run gh-scout".
+description: Check a GitHub user's open source merge rate and contribution score. Use when reviewing a PR from an unknown contributor, asked to "check merge rate", "check contributor quality", "vet this PR author", or "run gh-scout".
 metadata:
   author: vimtor
   version: "1.0.0"
@@ -14,7 +14,7 @@ Check a GitHub contributor's open source merge rate before reviewing their PR. H
 
 1. Fetches all public PRs (and optionally issues) by the user via GitHub GraphQL API
 2. Excludes the user's own repos — only external contributions count
-3. Calculates a **reputation score**: % of merged PR stars out of total PR stars (star-weighted merge rate)
+3. Calculates a **score score**: % of merged PR stars out of total PR stars (star-weighted merge rate)
 4. Breaks down stats per repository
 
 ## Prerequisites
@@ -49,14 +49,14 @@ gh scout <username> --repo owner/name
 ## Output
 
 The tool outputs:
-- **Reputation**: star-weighted merge rate (green ≥70%, yellow ≥40%, red <40%)
+- **Score**: star-weighted merge rate (green ≥70%, yellow ≥40%, red <40%)
 - **Pull Requests**: total merged/opened with per-repo breakdown
 - **Issues** (with `--issues`): total closed/opened with per-repo breakdown
 
 ## Present Results to User
 
 When presenting gh-scout output, summarize:
-- The user's reputation score and what it indicates
+- The user's score score and what it indicates
 - Their overall merge rate
 - Notable repos they've contributed to
 - Whether this suggests the contributor is trustworthy for the current PR

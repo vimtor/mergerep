@@ -13,7 +13,7 @@ function isRelevant(owner: string, stars: number, username: string): boolean {
   return owner !== username || stars >= MIN_OWN_STARS;
 }
 
-export function calculateReputation(
+export function calculateScore(
   prs: PullRequest[],
   username: string,
 ): number {

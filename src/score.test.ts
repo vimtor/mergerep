@@ -1,5 +1,5 @@
 import { describe, test, expect } from "bun:test";
-import { calculateReputation, calculateStats } from "./score";
+import { calculateScore, calculateStats } from "./score";
 import type { PullRequest, Issue } from "./types";
 
 const mockPRs: PullRequest[] = [
@@ -97,18 +97,18 @@ const mockIssues: Issue[] = [
   },
 ];
 
-describe("calculateReputation", () => {
+describe("calculateScore", () => {
   test("excludes own repos and weights by stars", () => {
-    const reputation = calculateReputation(mockPRs, "testuser");
+    const score = calculateScore(mockPRs, "testuser");
     // 3 external PRs: 2 merged (1000+500 stars) / total (2500 stars) = 60%
-    expect(reputation).toBe(60);
+    expect(score).toBe(60);
   });
 
   test("returns 0 for no external PRs", () => {
     const ownPRs = mockPRs.filter(
       (pr) => pr.repository.owner.login === "testuser",
     );
-    expect(calculateReputation(ownPRs, "testuser")).toBe(0);
+    expect(calculateScore(ownPRs, "testuser")).toBe(0);
   });
 });
 

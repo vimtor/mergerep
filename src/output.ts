@@ -16,7 +16,7 @@ export function formatPretty(
   data: ContributionData,
   currentRepo: string | null,
 ): string {
-  const { username, pullRequests, issues, reputation, since } = data;
+  const { username, pullRequests, issues, score, since } = data;
   const mergeRate =
     pullRequests.opened > 0
       ? Math.round((pullRequests.merged / pullRequests.opened) * 100)
@@ -28,7 +28,7 @@ export function formatPretty(
 
   let output = `${pc.bold(pc.cyan(username))}${since ? pc.dim(` (since ${formatDate(since)})`) : ""}
 
-${pc.bold("Reputation:")} ${colorRate(reputation)} ${pc.dim(`(% of merged stars)`)}
+${pc.bold("Score:")} ${colorRate(score)} ${pc.dim(`(% of merged stars)`)}
 
 ${pc.bold("Pull Requests:")}
 ${pullRequests.merged} merged ${pullRequests.opened} opened ${colorRate(mergeRate)}`;

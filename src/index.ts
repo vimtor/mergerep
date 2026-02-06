@@ -2,7 +2,7 @@
 import { program } from "commander";
 import ora from "ora";
 import { getContext, validateUser, fetchPRs, fetchIssues } from "./github";
-import { calculateReputation, calculateStats } from "./score";
+import { calculateScore, calculateStats } from "./score";
 import { formatPretty, formatJSON } from "./output";
 import type { ContributionData } from "./types";
 
@@ -51,7 +51,7 @@ program
         s.stopAndPersist({ symbol: "", text: "" });
       }
 
-      const reputation = calculateReputation(prs, username);
+      const score = calculateScore(prs, username);
       const stats = calculateStats(prs, issues, username, currentRepo);
       const since =
         [...prs.map((pr) => pr.createdAt), ...issues.map((i) => i.createdAt)]
@@ -61,7 +61,7 @@ program
 
       const data: ContributionData = {
         username,
-        reputation,
+        score,
         since,
         pullRequests: stats.pullRequests,
         ...(showIssues ? { issues: stats.issues } : {}),

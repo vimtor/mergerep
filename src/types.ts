@@ -49,7 +49,7 @@ export interface ContributionData {
   username: string;
   pullRequests: PRStats;
   issues?: IssueStats;
-  reputation: number;
+  score: number;
   since: string | null;
 }
 
