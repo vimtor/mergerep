@@ -7,7 +7,7 @@
     <br/>
 </div>
 
-Shows how often a user's PRs get merged into open source repos, weighted by repo stars.
+Prevent LLM slop PRs Shows how often a user's PRs get merged into open source repos, weighted by repo stars.
 
 ## Install
 
@@ -27,11 +27,24 @@ mergerep <username> --issues     # Include issues
 mergerep <username> --repo org/name  # Highlight specific repo
 ```
 
-## Output
+## Example
 
-- **Reputation**: Star-weighted merge rate — % of total PR stars that were merged (0-100)
-- **Pull Requests**: Opened, merged, merge rate, per-repo breakdown
-- **Issues**: Opened, closed, close rate (with `--issues`)
+```bash
+mergerep rauchg
+```
+
+```
+rauchg (from Dec 2010)
+
+Reputation: 70% (% of merged stars)
+
+Pull Requests:
+142 merged 186 opened 76%
+rauchg/blog 32/44 73%
+vercel/hyper 12/13 92%
+vercel/ncc 12/12 100%
+vercel/vercel 11/12 92%
+```
 
 ## License
 
