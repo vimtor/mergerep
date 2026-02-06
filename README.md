@@ -28,10 +28,10 @@ mergerep <username> --repo org/name  # Highlight specific repo
 
 ## Motivation
 
-Given the rise of agentic coding, many open source mantainers have complained about the influx of low quality pull requests from external contributors:
+Many open source maintainers are complaining about the influx of low-quality PRs from external contributors due to the rise of agentic coding:
 
 - [tldraw closing pull requests from external contributors](https://x.com/tldraw/status/2011911073834672138)
-- [@NathanFlurry's tweet](https://x.com/NathanFlurry/status/2018934424218587209)
+- [this tweet](https://x.com/NathanFlurry/status/2018934424218587209) from @NathanFlurry
 
 ## License
 
