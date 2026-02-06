@@ -20,7 +20,7 @@ gh vet <username> --repo org/name  # Highlight specific repo
 
 ## Example
 
-<img src="https://github.com/user-attachments/assets/97e5b24d-c9a9-4462-b0c0-c3c896adad36" alt="rauchg example output" width="70%" height="auto">
+<img src="https://github.com/user-attachments/assets/25571a51-152c-4516-a6dd-3da73b97da26" alt="example output" width="70%" height="auto">
 
 ## Motivation
 
