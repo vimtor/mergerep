@@ -7,7 +7,7 @@
     <br/>
 </div>
 
-Prevent LLM slop PRs Shows how often a user's PRs get merged into open source repos, weighted by repo stars.
+Check a contributor's merge rates before spending time on their LLM slop pull request.
 
 ## Install
 

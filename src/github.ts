@@ -1,7 +1,19 @@
 import { $ } from 'bun'
 import type { Context, PullRequest, Issue } from './types'
 
-const PAGES = 4
+const RANGES = 4
+
+function dateRanges(count: number): string[] {
+  const now = new Date()
+  const year = now.getFullYear()
+  const ranges: string[] = []
+  for (let i = 0; i < count - 1; i++) {
+    const y = year - i
+    ranges.push(`created:${y}-01-01..${y}-12-31`)
+  }
+  ranges.push(`created:<${year - count + 2}-01-01`)
+  return ranges
+}
 
 export async function getContext(): Promise<Context> {
   try {
@@ -30,9 +42,8 @@ export async function validateUser(login: string): Promise<boolean> {
 }
 
 export async function fetchPRs(username: string): Promise<PullRequest[]> {
-  const query = `query($q: String!, $cursor: String) {
-    search(query: $q, type: ISSUE, first: 100, after: $cursor) {
-      pageInfo { hasNextPage endCursor }
+  const query = `query($q: String!) {
+    search(query: $q, type: ISSUE, first: 100) {
       edges { node { __typename ... on PullRequest {
         number state merged additions deletions createdAt
         repository { nameWithOwner owner { login } stargazerCount isPrivate }
@@ -40,29 +51,23 @@ export async function fetchPRs(username: string): Promise<PullRequest[]> {
     }
   }`
 
-  const results: PullRequest[] = []
-  let cursor: string | null = null
+  const base = `author:${username} is:pr -is:draft`
+  const pages = await Promise.all(
+    dateRanges(RANGES).map(range =>
+      $`gh api graphql -f query=${query} -f q=${base + ' ' + range}`.json()
+    )
+  )
 
-  for (let i = 0; i < PAGES; i++) {
-    const cmd = cursor
-      ? $`gh api graphql -f query=${query} -f q=${'author:' + username + ' is:pr -is:draft'} -f cursor=${cursor}`
-      : $`gh api graphql -f query=${query} -f q=${'author:' + username + ' is:pr -is:draft'}`
-
-    const data: any = await cmd.json()
-    const edges = data.data.search.edges
-    results.push(...edges.map((e: any) => e.node).filter((n: any) => n.__typename === 'PullRequest' && !n.repository.isPrivate))
-
-    if (!data.data.search.pageInfo.hasNextPage) break
-    cursor = data.data.search.pageInfo.endCursor
-  }
-
-  return results
+  return pages.flatMap((data: any) =>
+    data.data.search.edges
+      .map((e: any) => e.node)
+      .filter((n: any) => n.__typename === 'PullRequest' && !n.repository.isPrivate)
+  )
 }
 
 export async function fetchIssues(username: string): Promise<Issue[]> {
-  const query = `query($q: String!, $cursor: String) {
-    search(query: $q, type: ISSUE, first: 100, after: $cursor) {
-      pageInfo { hasNextPage endCursor }
+  const query = `query($q: String!) {
+    search(query: $q, type: ISSUE, first: 100) {
       edges { node { __typename ... on Issue {
         number state createdAt
         repository { nameWithOwner owner { login } stargazerCount isPrivate }
@@ -70,21 +75,16 @@ export async function fetchIssues(username: string): Promise<Issue[]> {
     }
   }`
 
-  const results: Issue[] = []
-  let cursor: string | null = null
+  const base = `author:${username} is:issue`
+  const pages = await Promise.all(
+    dateRanges(RANGES).map(range =>
+      $`gh api graphql -f query=${query} -f q=${base + ' ' + range}`.json()
+    )
+  )
 
-  for (let i = 0; i < PAGES; i++) {
-    const cmd = cursor
-      ? $`gh api graphql -f query=${query} -f q=${'author:' + username + ' is:issue'} -f cursor=${cursor}`
-      : $`gh api graphql -f query=${query} -f q=${'author:' + username + ' is:issue'}`
-
-    const data: any = await cmd.json()
-    const edges = data.data.search.edges
-    results.push(...edges.map((e: any) => e.node).filter((n: any) => n.__typename === 'Issue' && !n.repository.isPrivate))
-
-    if (!data.data.search.pageInfo.hasNextPage) break
-    cursor = data.data.search.pageInfo.endCursor
-  }
-
-  return results
+  return pages.flatMap((data: any) =>
+    data.data.search.edges
+      .map((e: any) => e.node)
+      .filter((n: any) => n.__typename === 'Issue' && !n.repository.isPrivate)
+  )
 }

@@ -60,14 +60,13 @@ program
 
     const data: ContributionData = {
       username,
-      currentRepo,
-      prs: stats.prs,
-      issues: stats.issues,
       reputation,
-      since
+      since,
+      pullRequests: stats.pullRequests,
+      ...(showIssues ? { issues: stats.issues } : {}),
     }
 
-    console.log(jsonMode ? formatJSON(data) : formatPretty(data))
+    console.log(jsonMode ? formatJSON(data) : formatPretty(data, currentRepo))
   })
 
 program.parse()

@@ -38,22 +38,22 @@ describe('calculateReputation', () => {
 describe('calculateStats', () => {
   test('calculates PR stats correctly', () => {
     const stats = calculateStats(mockPRs, mockIssues, 'testuser', null)
-    expect(stats.prs.opened).toBe(3)
-    expect(stats.prs.merged).toBe(2)
+    expect(stats.pullRequests.opened).toBe(3)
+    expect(stats.pullRequests.merged).toBe(2)
   })
 
   test('groups PRs by repo sorted by opened count', () => {
     const stats = calculateStats(mockPRs, mockIssues, 'testuser', null)
-    expect(stats.prs.byRepo.length).toBe(2)
-    expect(stats.prs.byRepo[0]!.repo).toBe('other/repo')
-    expect(stats.prs.byRepo[0]!.opened).toBe(2)
-    expect(stats.prs.byRepo[1]!.repo).toBe('another/lib')
+    expect(stats.pullRequests.repositories.length).toBe(2)
+    expect(stats.pullRequests.repositories[0]!.name).toBe('other/repo')
+    expect(stats.pullRequests.repositories[0]!.opened).toBe(2)
+    expect(stats.pullRequests.repositories[1]!.name).toBe('another/lib')
   })
 
   test('puts currentRepo first in byRepo list', () => {
     const stats = calculateStats(mockPRs, mockIssues, 'testuser', 'another/lib')
-    expect(stats.prs.byRepo[0]!.repo).toBe('another/lib')
-    expect(stats.prs.byRepo[1]!.repo).toBe('other/repo')
+    expect(stats.pullRequests.repositories[0]!.name).toBe('another/lib')
+    expect(stats.pullRequests.repositories[1]!.name).toBe('other/repo')
   })
 
   test('calculates issue stats', () => {
@@ -64,8 +64,8 @@ describe('calculateStats', () => {
 
   test('groups issues by repo sorted by opened count', () => {
     const stats = calculateStats(mockPRs, mockIssues, 'testuser', null)
-    expect(stats.issues.byRepo.length).toBe(2)
-    expect(stats.issues.byRepo[0]!.repo).toBe('other/repo')
+    expect(stats.issues.repositories.length).toBe(2)
+    expect(stats.issues.repositories[0]!.name).toBe('other/repo')
   })
 
   test('limits to 4 repos max', () => {
@@ -77,6 +77,6 @@ describe('calculateStats', () => {
       })
     }
     const stats = calculateStats(manyPRs, [], 'testuser', null)
-    expect(stats.prs.byRepo.length).toBe(4)
+    expect(stats.pullRequests.repositories.length).toBe(4)
   })
 })

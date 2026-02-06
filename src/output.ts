@@ -12,33 +12,33 @@ function formatDate(iso: string): string {
   return d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
 }
 
-export function formatPretty(data: ContributionData): string {
-  const { username, currentRepo, prs, issues, reputation, since } = data
-  const mergeRate = prs.opened > 0 ? Math.round((prs.merged / prs.opened) * 100) : 0
-  const closeRate = issues.opened > 0 ? Math.round((issues.closed / issues.opened) * 100) : 0
+export function formatPretty(data: ContributionData, currentRepo: string | null): string {
+  const { username, pullRequests, issues, reputation, since } = data
+  const mergeRate = pullRequests.opened > 0 ? Math.round((pullRequests.merged / pullRequests.opened) * 100) : 0
+  const closeRate = issues && issues.opened > 0 ? Math.round((issues.closed / issues.opened) * 100) : 0
 
   let output = `${pc.bold(pc.cyan(username))}${since ? pc.dim(` (from ${formatDate(since)})`) : ''}
 
 ${pc.bold('Reputation:')} ${colorRate(reputation)} ${pc.dim(`(% of merged stars)`)}
 
 ${pc.bold('Pull Requests:')}
-${prs.merged} merged ${prs.opened} opened ${colorRate(mergeRate)}`
+${pullRequests.merged} merged ${pullRequests.opened} opened ${colorRate(mergeRate)}`
 
-  for (const repo of prs.byRepo) {
+  for (const repo of pullRequests.repositories) {
     const rate = repo.opened > 0 ? Math.round((repo.merged! / repo.opened) * 100) : 0
-    const repoName = repo.repo === currentRepo ? pc.cyan(repo.repo) : pc.dim(repo.repo)
+    const repoName = repo.name === currentRepo ? pc.cyan(repo.name) : pc.dim(repo.name)
     output += `\n${repoName} ${repo.merged}/${repo.opened} ${colorRate(rate)}`
   }
 
-  if (issues.opened > 0) {
+  if (issues && issues.opened > 0) {
     output += `
 
 ${pc.bold('Issues:')}
 ${issues.closed} closed ${issues.opened} opened ${colorRate(closeRate)}`
 
-    for (const repo of issues.byRepo) {
+    for (const repo of issues.repositories) {
       const rate = repo.opened > 0 ? Math.round((repo.closed! / repo.opened) * 100) : 0
-      const repoName = repo.repo === currentRepo ? pc.cyan(repo.repo) : pc.dim(repo.repo)
+      const repoName = repo.name === currentRepo ? pc.cyan(repo.name) : pc.dim(repo.name)
       output += `\n${repoName} ${repo.closed}/${repo.opened} ${colorRate(rate)}`
     }
   }

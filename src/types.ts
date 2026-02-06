@@ -26,7 +26,7 @@ export interface Issue {
 }
 
 export interface RepoStats {
-  repo: string
+  name: string
   stars: number
   opened: number
   merged?: number
@@ -36,20 +36,19 @@ export interface RepoStats {
 export interface PRStats {
   opened: number
   merged: number
-  byRepo: RepoStats[]
+  repositories: RepoStats[]
 }
 
 export interface IssueStats {
   opened: number
   closed: number
-  byRepo: RepoStats[]
+  repositories: RepoStats[]
 }
 
 export interface ContributionData {
   username: string
-  currentRepo: string | null
-  prs: PRStats
-  issues: IssueStats
+  pullRequests: PRStats
+  issues?: IssueStats
   reputation: number
   since: string | null
 }

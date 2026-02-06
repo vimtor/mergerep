@@ -26,7 +26,7 @@ export function calculateStats(
   issues: Issue[],
   username: string,
   currentRepo: string | null
-): { prs: PRStats, issues: IssueStats } {
+): { pullRequests: PRStats, issues: IssueStats } {
   const externalPRs = prs.filter(pr => isRelevant(pr.repository.owner.login, pr.repository.stargazerCount, username))
   const externalIssues = issues.filter(i => isRelevant(i.repository.owner.login, i.repository.stargazerCount, username))
 
@@ -53,15 +53,15 @@ export function calculateStats(
   // Build PR repo stats, sorted by opened count (current repo first if exists)
   let prRepoStats: RepoStats[] = Array.from(prsByRepo.entries())
     .map(([repo, { prs, stars }]) => ({
-      repo,
+      name: repo,
       stars,
       opened: prs.length,
       merged: prs.filter(pr => pr.merged).length
     }))
     .sort((a, b) => {
       if (currentRepo) {
-        if (a.repo === currentRepo) return -1
-        if (b.repo === currentRepo) return 1
+        if (a.name === currentRepo) return -1
+        if (b.name === currentRepo) return 1
       }
       return b.opened - a.opened
     })
@@ -70,30 +70,30 @@ export function calculateStats(
   // Build issue repo stats, sorted by opened count (current repo first if exists)
   let issueRepoStats: RepoStats[] = Array.from(issuesByRepo.entries())
     .map(([repo, { issues, stars }]) => ({
-      repo,
+      name: repo,
       stars,
       opened: issues.length,
       closed: issues.filter(i => i.state === 'CLOSED').length
     }))
     .sort((a, b) => {
       if (currentRepo) {
-        if (a.repo === currentRepo) return -1
-        if (b.repo === currentRepo) return 1
+        if (a.name === currentRepo) return -1
+        if (b.name === currentRepo) return 1
       }
       return b.opened - a.opened
     })
     .slice(0, MAX_REPOS)
 
   return {
-    prs: {
+    pullRequests: {
       opened: externalPRs.length,
       merged: externalPRs.filter(pr => pr.merged).length,
-      byRepo: prRepoStats
+      repositories: prRepoStats
     },
     issues: {
       opened: externalIssues.length,
       closed: externalIssues.filter(i => i.state === 'CLOSED').length,
-      byRepo: issueRepoStats
+      repositories: issueRepoStats
     }
   }
 }
