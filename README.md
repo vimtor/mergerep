@@ -8,8 +8,6 @@ GitHub CLI extension for checking a contributor's open source merge rate before 
 gh extension install vimtor/gh-vet
 ```
 
-Requires [GitHub CLI](https://cli.github.com/) (`gh`) authenticated.
-
 ## Usage
 
 ```bash
@@ -22,7 +20,7 @@ gh vet <username> --repo org/name  # Highlight specific repo
 
 ## Example
 
-<img src="example.png" alt="rauchg example output" width="70%" height="auto">
+<img src="https://github.com/user-attachments/assets/97e5b24d-c9a9-4462-b0c0-c3c896adad36" alt="rauchg example output" width="70%" height="auto">
 
 ## Motivation
 
